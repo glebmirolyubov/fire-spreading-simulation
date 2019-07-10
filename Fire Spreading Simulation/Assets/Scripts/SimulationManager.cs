@@ -60,7 +60,6 @@ public class SimulationManager : MonoBehaviour
         }
     }
 
-
     //Randomly place plants, that were pooled at the start of the scene, on the terrain while clearing already existing ones
     public void GeneratePlants()
     {
@@ -139,7 +138,15 @@ public class SimulationManager : MonoBehaviour
 
     public void RemovePlant()
     {
-
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.tag == "Plant")
+            {
+                hit.collider.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void TogglePlantFire()

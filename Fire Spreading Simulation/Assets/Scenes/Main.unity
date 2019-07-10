@@ -3157,6 +3157,7 @@ GameObject:
   - component: {fileID: 1987761552}
   - component: {fileID: 1987761551}
   - component: {fileID: 1987761553}
+  - component: {fileID: 1987761554}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3176,8 +3177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33808dbc53679644ad083b53086edb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfPlantsToPool: 500
   pooledPlants: []
+  amountOfPlantsToPool: 50
   plantToPool: {fileID: 1349033852010125559, guid: c612f047c4e06c14eb1314864b39625e,
     type: 3}
 --- !u!4 &1987761552
@@ -3208,6 +3209,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hillsTerrain: {fileID: 1720365571}
   modeLabel: {fileID: 1505534369}
+--- !u!114 &1987761554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987761550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd7d3aa60b91ba4683fb716fb6984cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2018552825
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    PlantState plantState;
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        plantState = PlantState.Base;
     }
 }
