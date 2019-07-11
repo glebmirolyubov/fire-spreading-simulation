@@ -5,6 +5,9 @@
 /// - as the strength of the wind increases, so does the length of the capsule collider
 /// - capsule collider is pivoted at the origin of the plant
 /// - capsule collider rotates with wind direction to imitate the correct propagation
+/// - trigger enter and exit to detect nearby plants depending on wind values
+/// 
+/// written by Gleb Mirolyubov, 2019
 ///     
 /// </summary>
 using UnityEngine;
@@ -46,6 +49,7 @@ public class PlantFireArea : MonoBehaviour
         windStrengthSlider = WindController.instance.WindStrengthSlider;
         windDirectionSlider = WindController.instance.WindDirectionSlider;
 
+        // delegate slider changes to dedicated methods
         windStrengthSlider.onValueChanged.AddListener(delegate { WindStrengthChange(); });
         windDirectionSlider.onValueChanged.AddListener(delegate { WindDirectionChange(); });
     }
@@ -63,6 +67,7 @@ public class PlantFireArea : MonoBehaviour
         fireAreaCollider.center = new Vector3(0, 0, colliderPosition);
     }
 
+    // if wind strength incerases or wind direction changes, add plants that are in range
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "FireArea")
@@ -72,6 +77,7 @@ public class PlantFireArea : MonoBehaviour
         }
     }
 
+    // if wind strength decreases or wind direction changes, remove plants that are no longer in range
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "FireArea")

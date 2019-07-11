@@ -4,14 +4,20 @@
 /// 
 /// - random generation of palnts on terrain
 /// - clearing all plants from terrain
+/// - setting random plants on fire
+/// - starting and stopping simulation
 /// - toggling between different modes (add, remove, toggle)
 /// - adding new plant to the terrain on mouse click
 /// - removing exisitng plant from the terrain on mouse click
 /// - igniting selected plant on fire on mouse click
+/// - quitting the game
+/// 
+/// written by Gleb Mirolyubov, 2019
 ///     
 /// </summary>
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SimulationController : MonoBehaviour
 {
@@ -19,6 +25,8 @@ public class SimulationController : MonoBehaviour
     private Terrain hillsTerrain;
     [SerializeField]
     private Text modeLabel;
+    [SerializeField]
+    private Text simulationText;
 
     int terrainWidth;
     int terrainLength;
@@ -29,9 +37,16 @@ public class SimulationController : MonoBehaviour
 
     Mode currentMode;
 
+    void Awake()
+    {
+        // stop the time from the very beginning to not play the simulation
+        Time.timeScale = 0;
+    }
+
     void Start()
     {
         currentMode = Mode.Add;
+        simulationText.text = "Play Simulation";
 
         terrainWidth = (int)hillsTerrain.terrainData.size.x;
         terrainLength = (int)hillsTerrain.terrainData.size.z;
@@ -94,6 +109,42 @@ public class SimulationController : MonoBehaviour
         currentPlants = 0;
     }
 
+    // Ignite 10% of the active plants on fire
+    public void SetRandomPlantsOnFire()
+    {
+        List<GameObject> plantsToIgnite = new List<GameObject>();
+
+        // get all active and unburnt plants from the scene and add them to the list
+        foreach (GameObject plant in PlantPooler.instance.PooledPlants)
+        {
+            if (plant.activeInHierarchy && plant.GetComponent<Plant>().PlantState == PlantState.Base)
+            {
+                plantsToIgnite.Add(plant);
+            }
+        }
+
+        // ignite 10% of these plants using random method
+        for (int i = 0; i < (int)(plantsToIgnite.Count * 0.1); i++)
+        {
+            plantsToIgnite[Random.Range(0, plantsToIgnite.Count - 1)].GetComponent<Plant>().SetPlantOnFire();
+        }
+    }
+
+    // Turn simulation on and off
+    public void ToggleSimulation()
+    {
+        switch (Time.timeScale)
+        {
+            case 1:
+                Time.timeScale = 0;
+                simulationText.text = "Play Simulation";
+                break;
+            case 0:
+                Time.timeScale = 1;
+                simulationText.text = "Stop Simulation";
+                break;
+        }
+    }
 
     // Toggle between different modes
     public void ToggleMode()
@@ -119,6 +170,7 @@ public class SimulationController : MonoBehaviour
         modeLabel.text = currentMode.ToString();
     }
 
+    // Add plant on a click of a mouse
     public void AddPlant()
     {
         RaycastHit hit;
@@ -136,6 +188,7 @@ public class SimulationController : MonoBehaviour
         }
     }
 
+    // Remove plant under the click of the mouse
     public void RemovePlant()
     {
         RaycastHit hit;
@@ -149,6 +202,7 @@ public class SimulationController : MonoBehaviour
         }
     }
 
+    // Ignite plant under the mouse coursor on click
     public void TogglePlantFire()
     {
         RaycastHit hit;
@@ -164,5 +218,10 @@ public class SimulationController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void QuitSimulation()
+    {
+        Application.Quit(0);
     }
 }

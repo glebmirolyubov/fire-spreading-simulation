@@ -1,9 +1,12 @@
 ﻿/// <summary>
 /// 
-/// PlantPooler uses pooling technique to optimise performance:
+/// PLANT POOLER uses pooling technique to optimise performance:
+/// 
 /// - instead of creating and destroying many plants at runtime, they are all created at the start and stored in the "pool" of objects
 /// - if new plants need to be added to the terrain, new objects are instantiated and stored in the pool
 /// - "destroyed plants" are disabled, not destroyed completely
+/// 
+/// written by Gleb Mirolyubov, 2019
 ///     
 /// </summary>
 using System.Collections.Generic;
@@ -42,6 +45,7 @@ public class PlantPooler : MonoBehaviour
         instance = this;
     }
 
+    // Creates the specified number of plants and adds them to the pool list
     void Start()
     {
         pooledPlants = new List<GameObject>();
@@ -54,6 +58,7 @@ public class PlantPooler : MonoBehaviour
         }
     }
 
+    // Gets disabled plant
     public GameObject GetPooledPlant()
     {
         for (int i = 0; i < pooledPlants.Count; i++)
@@ -67,6 +72,7 @@ public class PlantPooler : MonoBehaviour
         return null;
     }
 
+    // Adds a new plant game object to the pool
     public GameObject AddNewPlantToPool()
     {
         GameObject plant = Instantiate(plantToPool);

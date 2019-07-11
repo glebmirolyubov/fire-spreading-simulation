@@ -1,8 +1,15 @@
 ﻿/// <summary>
 /// 
-/// PLANT is the base script for plant object that tracks the current state of the plant
+/// PLANT is the base script for plant object responsible for:
+/// 
+/// - setting the plant of fire, while chaning its color and state
+/// - checking if nearby plants are within the fire propagation radius
+/// - buring the plant using IEnumerator
+/// 
+/// written by Gleb Mirolyubov, 2019
 ///     
 /// </summary>
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,9 +41,16 @@ public class Plant : MonoBehaviour
 
     public void SetPlantOnFire()
     {
-        plantState = PlantState.Burning;
-        plantRenderer.material.color = Color.red;
-        StartCoroutine("BurningPlant");
+        try
+        {
+            plantState = PlantState.Burning;
+            plantRenderer.material.color = Color.red;
+            StartCoroutine("BurningPlant");
+        } 
+        catch (Exception e)
+        {
+            print(e.Message);
+        }
     }
 
     public void SetPlantToBurnt()

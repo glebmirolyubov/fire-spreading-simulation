@@ -1,8 +1,11 @@
 ﻿/// <summary>
 /// 
-/// WindController script controls the WindZone component in the scene:
+/// WIND CONTROLLER script controls the WindZone component in the scene:
+/// 
 /// - wind strength (set to 0 to 100) is determined by slider value
 /// - wind direction (set to 0 - 360 degrees) is determined by slider value
+/// 
+/// written by Gleb Mirolyubov, 2019   
 /// 
 /// </summary>
 using UnityEngine;
