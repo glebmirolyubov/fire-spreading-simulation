@@ -1,6 +1,7 @@
 ﻿/// <summary>
 /// 
-/// PlantFireArea controls the trigger collider around the plant to imitate the wind forces and to allow fire to propagate:
+/// PLANT FIRE AREA controls the trigger collider around the plant to imitate the wind forces and to allow fire to propagate:
+/// 
 /// - as the strength of the wind increases, so does the length of the capsule collider
 /// - capsule collider is pivoted at the origin of the plant
 /// - capsule collider rotates with wind direction to imitate the correct propagation
@@ -8,21 +9,39 @@
 /// </summary>
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlantFireArea : MonoBehaviour
 {
     private Slider windStrengthSlider;
     private Slider windDirectionSlider;
 
-    CapsuleCollider fireAreaCollider;
+    private CapsuleCollider fireAreaCollider;
 
     [Range(4f, 10f)]
     float colliderSize;
     [Range(0f, 3f)]
     float colliderPosition;
 
-    void Start()
+    private List<GameObject> nearbyPlants;
+
+    public List<GameObject> NearbyPlants
     {
+        get
+        {
+            return nearbyPlants;
+        }
+    }
+
+    void OnDisable()
+    {
+        // clear the list since this plant is pooled back
+        nearbyPlants.Clear();
+    }
+
+    void Awake()
+    {
+        nearbyPlants = new List<GameObject>();
         fireAreaCollider = GetComponent<CapsuleCollider>();
         windStrengthSlider = WindController.instance.WindStrengthSlider;
         windDirectionSlider = WindController.instance.WindDirectionSlider;
@@ -42,5 +61,25 @@ public class PlantFireArea : MonoBehaviour
         colliderPosition = Mathf.Lerp(0, 3, Mathf.InverseLerp(0, 100, windStrengthSlider.value));
         fireAreaCollider.height = colliderSize;
         fireAreaCollider.center = new Vector3(0, 0, colliderPosition);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "FireArea")
+        {
+            GameObject plant = other.gameObject.transform.parent.gameObject;
+            nearbyPlants.Add(plant);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "FireArea")
+        {
+            if (nearbyPlants.Contains(other.gameObject.transform.parent.gameObject))
+            {
+                nearbyPlants.Remove(other.gameObject.transform.parent.gameObject);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿/// <summary>
 /// 
-/// SimulationController script controls the input from UI buttons and is responsible for:
+/// SIMULATION CONTROLLER script controls the input from UI buttons and is responsible for:
+/// 
 /// - random generation of palnts on terrain
 /// - clearing all plants from terrain
 /// - toggling between different modes (add, remove, toggle)
@@ -150,6 +151,18 @@ public class SimulationController : MonoBehaviour
 
     public void TogglePlantFire()
     {
-
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.tag == "Plant")
+            {
+                // if the plant is healthy, set it on fire
+                if (hit.collider.gameObject.GetComponent<Plant>().PlantState == PlantState.Base)
+                {
+                    hit.collider.gameObject.GetComponent<Plant>().SetPlantOnFire();
+                }
+            }
+        }
     }
 }
