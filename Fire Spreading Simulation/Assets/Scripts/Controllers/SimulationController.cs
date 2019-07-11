@@ -1,6 +1,6 @@
 ﻿/// <summary>
 /// 
-/// SimulationManager script is the main manager in this project and is responsible for:
+/// SimulationController script controls the input from UI buttons and is responsible for:
 /// - random generation of palnts on terrain
 /// - clearing all plants from terrain
 /// - toggling between different modes (add, remove, toggle)
@@ -9,11 +9,10 @@
 /// - igniting selected plant on fire on mouse click
 ///     
 /// </summary>
-
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimulationManager : MonoBehaviour
+public class SimulationController : MonoBehaviour
 {
     [SerializeField]
     private Terrain hillsTerrain;
@@ -45,17 +44,17 @@ public class SimulationManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentMode == Mode.Add)
+            switch (currentMode)
             {
-                AddPlant();
-            } 
-            else if (currentMode == Mode.Remove)
-            {
-                RemovePlant();
-            }
-            else if (currentMode == Mode.Toggle)
-            {
-                TogglePlantFire();
+                case Mode.Add:
+                    AddPlant();
+                    break;
+                case Mode.Remove:
+                    RemovePlant();
+                    break;
+                case Mode.Toggle:
+                    TogglePlantFire();
+                    break;
             }
         }
     }

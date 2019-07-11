@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿/// <summary>
+/// 
+/// PlantPooler uses pooling technique to optimise performance:
+/// - instead of creating and destroying many plants at runtime, they are all created at the start and stored in the "pool" of objects
+/// - if new plants need to be added to the terrain, new objects are instantiated and stored in the pool
+/// - "destroyed plants" are disabled, not destroyed completely
+///     
+/// </summary>
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlantPooler : MonoBehaviour

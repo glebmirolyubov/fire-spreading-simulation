@@ -1649,7 +1649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 25, y: 20, z: -9.42}
+  m_LocalPosition: {x: 25, y: 30, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1694,7 +1694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996191511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 10, z: 25}
+  m_LocalPosition: {x: 25, y: 18, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 919471498}
@@ -1900,6 +1900,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wind: {fileID: 996191512}
+  windStrengthSlider: {fileID: 1200786861}
+  windDirectionSlider: {fileID: 1789958733}
   windStrengthText: {fileID: 338293861}
   windDirectionText: {fileID: 72522191}
 --- !u!1 &1162592334
@@ -3157,7 +3159,6 @@ GameObject:
   - component: {fileID: 1987761552}
   - component: {fileID: 1987761551}
   - component: {fileID: 1987761553}
-  - component: {fileID: 1987761554}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3209,18 +3210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hillsTerrain: {fileID: 1720365571}
   modeLabel: {fileID: 1505534369}
---- !u!114 &1987761554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1987761550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd7d3aa60b91ba4683fb716fb6984cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2018552825
 GameObject:
   m_ObjectHideFlags: 0
